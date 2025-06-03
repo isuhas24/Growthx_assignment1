@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevate Animation</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Top Star Shape -->
+    <svg class="top-shape" width="120" height="120" viewBox="0 0 100 100">
+      <path d="M50 0 Q60 50 100 50 Q60 50 50 100 Q40 50 0 50 Q40 50 50 0" fill="white"/>
+    </svg>
+
+    <!-- Bottom Shape with outline + fill reveal mask -->
+    <svg class="bottom-shape" viewBox="0 0 240 100" preserveAspectRatio="none">
+      <defs>
+        <mask id="fillMask">
+          <rect width="240" height="100" fill="black" />
+          <rect id="revealRect" x="0" y="0" height="100" width="0" fill="white" />
+        </mask>
+      </defs>
+      <path d="M0,0 Q60,10 120,100 Q180,10 240,0 Z" 
+            fill="white" mask="url(#fillMask)" stroke="white" stroke-width="2" />
+    </svg>
+
+    <!-- Text -->
+    <div class="text">ELEVATE</div>
+  </div>
+
+  <script>
+    const revealRect = document.getElementById('revealRect');
+    const bottomShape = document.querySelector('.bottom-shape');
+
+    // Animate fill from left to right
+    revealRect.animate(
+      [
+        { width: '0%' },
+        { width: '100%' }
+      ],
+      {
+        duration: 2000,
+        easing: 'ease',
+        fill: 'forwards'
+      }
+    );
+
+    //Delaying bottom shape shift up after initial movement
+    setTimeout(() => {
+      bottomShape.style.animation = 'bottomShiftUp 2s ease forwards';
+    }, 3000); // Start after shape is in position and text is faded in
+  </script>
+</body>
+</html>
