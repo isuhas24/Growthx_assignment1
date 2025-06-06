@@ -1,99 +1,104 @@
+:root {
+  --primary-color: white;
+
+  --star-duration: 2s;
+  --bottom-move-duration: 2s;
+  --bottom-shift-delay: 3s;
+  --bottom-shift-duration: 2s;
+  --fill-delay: 0s;
+  --fill-duration: 2s;
+  --text-fade-delay: 2s;
+  --text-move-delay: 3s;
+}
+
+/* General */
 body {
-    margin: 0;
-    background: black;
-    overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: black;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
+/* Top star animation */
 .top-shape {
-    position: absolute;
-    top: -100px;
-    left: -100px;
-    animation: topRotateIn 2s ease forwards;
-}
-
-.bottom-shape {
-    position: absolute;
-    left: 50%;
-    top: 60%;
-    transform: translateX(-50%);
-    animation: bottomMoveUp 2s ease forwards;
-    width: 240px;
-    height: 100px;
-}
-
-.text {
-    position: absolute;
-    top: 75%;
-    width: 100%;
-    text-align: center;
-    font-size: 4rem;
-    color: white;
-    opacity: 0;
-    font-weight: 300;
-    letter-spacing: 2rem;
-    animation: fadeInText 1s ease forwards 2s, textMoveUp 2s ease forwards 3s;
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  animation: topRotateIn var(--star-duration) ease forwards;
 }
 
 @keyframes topRotateIn {
-    0% {
+  0% {
     transform: translate(-100px, -100px) rotate(-720deg);
     opacity: 0;
-    }
-    100% {
+  }
+  100% {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
     opacity: 1;
-    }
+  }
+}
+
+/* Bottom shape entrance + shift up */
+.bottom-shape {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 100px;
+  animation: bottomMoveUp var(--bottom-move-duration) ease forwards,
+             bottomShiftUp var(--bottom-shift-duration) ease forwards var(--bottom-shift-delay);
 }
 
 @keyframes bottomMoveUp {
-    0% {
-        top: 60%;
-        opacity: 1;
-    }
-    100% {
-        top: 50%;
-        opacity: 1;
-    }
+  from { top: 60%; }
+  to { top: 50%; }
 }
 
 @keyframes bottomShiftUp {
-    0% {
-        top: 50%;   
-    }
-    100% {
-        top: 40%;
-    }
+  from { top: 50%; }
+  to { top: 40%; }
 }
 
-@keyframes textMoveUp {
-    0% {
-        top: 75%;
-    }
-    100% {
-        top: 60%;
-    }
-}
-
-@keyframes fadeInText {
-    to {
-        opacity: 1;
-    }
+/* Mask fill reveal (converted from JS to CSS) */
+.reveal-fill {
+  width: 0;
+  animation: revealFill var(--fill-duration) ease forwards;
 }
 
 @keyframes revealFill {
-    from {
-        width: 0%;
-    }
-    to {
-        width: 100%;
-    }
+  from { width: 0; }
+  to { width: 240px; }
+}
+
+/* Text fade and move */
+.text {
+  position: absolute;
+  top: 75%;
+  width: 100%;
+  text-align: center;
+  font-size: 4rem;
+  color: var(--primary-color);
+  opacity: 0;
+  font-weight: 300;
+  letter-spacing: 2rem;
+  animation: fadeInText 1s ease forwards var(--text-fade-delay),
+             textMoveUp 2s ease forwards var(--text-move-delay);
+}
+
+@keyframes fadeInText {
+  to { opacity: 1; }
+}
+
+@keyframes textMoveUp {
+  from { top: 75%; }
+  to { top: 60%; }
 }

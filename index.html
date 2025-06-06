@@ -14,42 +14,19 @@
     </svg>
 
     <!-- Bottom Shape with outline + fill reveal mask -->
-    <svg class="bottom-shape" viewBox="0 0 240 100" preserveAspectRatio="none">
-      <defs>
-        <mask id="fillMask">
-          <rect width="240" height="100" fill="black" />
-          <rect id="revealRect" x="0" y="0" height="100" width="0" fill="white" />
-        </mask>
-      </defs>
-      <path d="M0,0 Q60,10 120,100 Q180,10 240,0 Z" 
-            fill="white" mask="url(#fillMask)" stroke="white" stroke-width="2" />
-    </svg>
+    
+  <svg class="bottom-shape" viewBox="0 0 240 100" preserveAspectRatio="none">
+    <defs>
+      <mask id="fillMask">
+        <rect width="240" height="100" fill="black" />
+        <rect class="reveal-fill" x="0" y="0" height="100" width="240" fill="white" />
+      </mask>
+    </defs>
+    <path d="M0,0 Q60,10 120,98 Q180,10 240,0 Z" fill="white" mask="url(#fillMask)" stroke="white" stroke-width="2" />
+  </svg>
 
     <!-- Text -->
     <div class="text">ELEVATE</div>
   </div>
-
-  <script>
-    const revealRect = document.getElementById('revealRect');
-    const bottomShape = document.querySelector('.bottom-shape');
-
-    // Animate fill from left to right
-    revealRect.animate(
-      [
-        { width: '0%' },
-        { width: '100%' }
-      ],
-      {
-        duration: 2000,
-        easing: 'ease',
-        fill: 'forwards'
-      }
-    );
-
-    //Delaying bottom shape shift up after initial movement
-    setTimeout(() => {
-      bottomShape.style.animation = 'bottomShiftUp 2s ease forwards';
-    }, 3000); // Start after shape is in position and text is faded in
-  </script>
 </body>
 </html>
